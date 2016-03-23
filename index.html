@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PPTrainer</title>
+	<link rel="stylesheet" href="styles/styles.min.css">
+	<link rel="stylesheet" href="styles/jquery-ui.css">
+</head>
+<body>
+	<header>
+		<span id="sourceFiles">
+			Source files
+			<ul>
+				<li><a target="_blank" href="js/perfectPitchTrainer.js">Main JS</a></li>
+				<li><a target="_blank" href="styles/style.less">Less</a></li>
+			</ul>
+		</span>
+		<span>P</span>erfect <span>P</span>itch <span>T</span>rainer 
+	</header>
+	<section id="mainInfo">
+		<h1>What is it?</h1>
+		<p>This program trains your absolute pitch skills. Press the 'Start' button and you will hear random played note. Try to guess it by pressing key on piano keyboard. Use mouse or touchscreen for this. Also you can use computer keyboard. Image below shows correspondence between piano keys and keyboard. <img src="images/qwerty-big.gif" alt="Correspondence between keys"> When you press piano key the light indicator shows the correctness of attempt by red or green glow. Repeat button plays random note again. Screen displaing misses and  sets count. After 10 attempts you will see score. Strive to do less misses and your efficiency will grow.</p>
+	</section>
+	<section id="pianoContainer">
+		<div class="overlay">
+			<div id="preloaderWrapper">
+				<img src="images/preloader.gif" alt="Loading..." >
+				<span id="percent">0</span>%
+			</div>
+			<div id="error">Error loading audio files. Please reload the page and try again.</div>
+			<div id="runApp">Run</div>			
+			<div id="result">
+				<h1>TOTAL RESULT:</h1>
+				<span id="totalAttempts"></span>
+				<span id="comment"></span>
+				<div id="tryAgain">Try again</div>
+				<div id="close">Close</div>
+			</div>
+		</div>
+		<div id="controlsPanel">
+			<div id="display">
+				<span id="info"></span>
+			</div>
+			<div class="indicator"></div>
+			<div class="startTrain">
+				<span>Start</span>
+			</div>
+			<div class="repeat">
+				<span>Repeat</span>
+			</div>
+			<div id="volume">
+				<span>Volume</span>
+				<div id="volumeSlider"></div>
+				<hr><hr><hr><hr><hr>
+			</div>
+		</div>
+		<div id="keys">
+			<div id="redline"></div>
+			<!-- comment tags being used to remove space between blocks -->
+			<div id="C" class="key white" data-key-code="81">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--
+			--><div id="D" class="key white" data-key-code="87">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--
+			--><div id="E" class="key white" data-key-code="69">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--	
+			--><div id="F" class="key white" data-key-code="82">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--
+			--><div id="G" class="key white" data-key-code="84">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--
+			--><div id="A" class="key white" data-key-code="89">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div><!--
+			--><div id="B" class="key white" data-key-code="85">
+				<div class="top"></div>
+				<div class="bottom"></div>
+				<audio></audio>
+			</div>
+			<div id="Db" class="key black" data-key-code="50">
+				<audio></audio>
+			</div>
+			<div id="Eb" class="key black" data-key-code="51">
+				<audio></audio>
+			</div>
+			<div id="Gb" class="key black" data-key-code="53">
+				<audio></audio>
+			</div>
+			<div id="Ab" class="key black" data-key-code="54">
+				<audio></audio>
+			</div>
+			<div id="Bb" class="key black" data-key-code="55">
+				<audio></audio>
+			</div>
+		</div>
+		<div id="screws">
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+		</div>
+	</section>
+	<footer>Bondarenko Maxim &copy; 2016</footer>
+	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="js/jquery-ui.min.js"></script>
+	<script src="js/perfectPitchTrainer.js"></script>
+</body>
+</html>

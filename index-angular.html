@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="PPTrainer">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>PPTrainer (Angular ver.)</title>
+	<link rel="stylesheet" href="styles/styles.min.css">
+</head>
+<body data-keyboard-events>
+	<header>
+		<span id="sourceFiles">
+			Source files
+			<ul>
+				<li><a target="_blank" href="js/PPTrainerAngular.js">Main JS</a></li>
+				<li><a target="_blank" href="js/directives.js">Directives</a></li>
+				<li><a target="_blank" href="js/services.js">Services</a></li>
+				<li><a target="_blank" href="styles/style.less">Less</a></li>
+			</ul>
+		</span>
+		<span>P</span>erfect <span>P</span>itch <span>T</span>rainer 
+		<span id="colored">(AngularJS version)</span>
+	</header>
+	<section id="mainInfo">
+		<h1>What is it?</h1>
+		<p>This program trains your absolute pitch skills. Press the 'Start' button and you will hear random played note. Try to guess it by pressing key on piano keyboard. Use mouse or touchscreen for this. Also you can use computer keyboard. Image below shows correspondence between piano keys and keyboard. <img src="images/qwerty-big.gif" alt="Correspondence between keys"> When you press piano key the light indicator shows the correctness of attempt by red or green glow. Repeat button plays random note again. Screen displaing misses and  sets count. After 10 attempts you will see score.Strive to do less misses and your efficiency will grow.</p>
+	</section>
+	<section id="pianoContainer" ng-controller="PPTrainerController as mainCtrl">
+		<div class="overlayAngular" ng-show="!mainCtrl.audio.loaded || mainCtrl.training.showTotal">
+			<div id="preloaderWrapper" ng-show="mainCtrl.audio.loading">
+				<img src="images/preloader.gif" alt="Loading..." >
+				<span id="percent">{{mainCtrl.audio.percent}}</span>%
+			</div>
+			<div id="error" ng-show="mainCtrl.audio.error">Error loading audio files. Please reload the page and try again.</div>
+			<div id="runApp" ng-hide="mainCtrl.audio.loaded || mainCtrl.audio.loading" ng-click="mainCtrl.audio.startLoad()">Run</div>
+			<div id="result" ng-class="{bounceIn: mainCtrl.training.showTotal}">
+				<h1>TOTAL RESULT:</h1>
+				<span id="totalAttempts">
+					Sets: {{mainCtrl.training.sets}}<br>
+					Misses: {{mainCtrl.training.misses}}<br>
+					Efficiency: {{mainCtrl.training.efficiency}}%
+				</span>
+				<span id="comment">{{mainCtrl.training.comment}}</span>
+				<div id="tryAgain" ng-click="mainCtrl.training.start()">Try again</div>
+				<div id="close" ng-click="mainCtrl.training.showTotal = false">Close</div>
+			</div>
+		</div>
+		<div id="keys">
+			<div id="redline"></div>
+			<div ng-repeat="key in mainCtrl.keys" 
+					id="{{key.noteName}}" 
+					class="key" 
+					ng-class="{white: key.white, black: !key.white,  whitePressed: key.white && key.pressed, blackPressed: !key.white && key.pressed}"
+					data-mouse-events="key">
+
+				<div ng-if="key.white" class="top"></div>
+				<div ng-if="key.white" class="bottom"></div>
+				<audio ng-src="{{mainCtrl.audio.loading ? key.url : '' }}" data-play-audio="key"></audio>
+			</div>
+		</div>
+		<div id="controlsPanel" ng-controller="ControlsPanelController as controls">
+
+			<div id="display">
+				<span id="volumeInfo" ng-show="controls.volumeSlider.showValue && !mainCtrl.training.started">
+					Volume: {{controls.volumeSlider.val.point * 10}}%
+				</span>
+				<span id="counter" ng-show="mainCtrl.training.showCounter">{{mainCtrl.training.counter}}</span>
+				<span ng-show="mainCtrl.training.showInfo">
+					Note: {{mainCtrl.training.noteInfo}}<br>
+					Misses: {{mainCtrl.training.misses}}<br>
+					Sets: {{mainCtrl.training.sets}}
+				</span>
+			</div>		
+			
+
+			<div class="indicator" ng-class="{indicatorRed: controls.indicator.red, indicatorGreen: controls.indicator.green}"></div>
+
+
+			<div class="startTrain" ng-click="controls.startButton.toggle()" ng-class="{startTrainPressed: mainCtrl.training.started}">
+				<span>{{controls.startButton.label}}</span>
+			</div>
+
+
+			<div class="repeat" ng-mousedown="controls.repeater.toggle()" ng-mouseup="controls.repeater.toggle()" ng-class="{repeatPressed: controls.repeater.pressed}">
+				<span>Repeat</span>
+			</div>
+
+
+			<div id="keyVolume">
+				<span>Volume</span>
+				<hr><hr><hr><hr><hr>
+				<slider-easy value="controls.volumeSlider.val" option="controls.volumeSlider.option"></slider-easy>
+			</div>
+		</div>
+		<div id="screws">
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+			<div class="screw"></div>
+		</div>
+	</section>
+	<footer>Bondarenko Maxim &copy; 2016</footer>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+	<script src="js/angular-slider-easy.min.js"></script>
+	<script src="js/PPTrainerAngular.js"></script>
+	<script src="js/services.js"></script>
+	<script src="js/directives.js"></script>
+</body>
+</html>
